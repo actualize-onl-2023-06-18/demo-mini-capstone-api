@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(
-      image_url: params[:image_url], 
+      image_url: params[:image_url],
       name: params[:name], 
       price: params[:price], 
       description: params[:description]
@@ -20,4 +20,17 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
     render :show
   end
+
+  def update
+    # combination of show and create
+    @product = Product.find_by(id: params[:id])
+    @product.name = params[:name]
+    @product.description = params[:description]
+    @product.image_url = params[:image_url]
+    @product.price = params[:price]
+    @product.save
+    
+    render :show
+  end
+  
 end
