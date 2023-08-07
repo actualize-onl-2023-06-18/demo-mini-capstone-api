@@ -5,14 +5,17 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(
-      image_url: params[:image_url],
+    @product = Product.new(      
       name: params[:name], 
       price: params[:price], 
-      description: params[:description]
+      description: params[:description],
+      supplier_id: params[:supplier_id]
     )
-    @product.save
-    render :show
+    if @product.save
+      render :show
+    else
+      render json: {errors: @product.errors.full_messages}, status: 422
+    end
   end
   
   def show
