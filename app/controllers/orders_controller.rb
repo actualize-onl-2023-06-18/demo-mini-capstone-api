@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
   def index
-    orders = Order.all
-    render json: orders
+    # orders = Order.where(user_id: current_user.id)
+    @orders = current_user.orders
+    render :index
   end
   
   def create
@@ -14,7 +15,7 @@ class OrdersController < ApplicationController
     calculated_total = calculated_subtotal + calculated_tax
     
     
-    order = Order.new(
+    @order = Order.new(
       user_id: current_user.id,
       product_id: params[:product_id],
       quantity: params[:quantity],
@@ -22,12 +23,16 @@ class OrdersController < ApplicationController
       tax: calculated_tax,
       total: calculated_total,
     )
-    order.save
-    render json: order
+    @order.save
+    render :show
   end
   
   def show
-    order = Order.find_by(id: params[:id])    
-    render json: order
+    @order = Order.find_by(id: params[:id])    
+    if @order.user_id == current_user.id
+      render :show
+    else 
+      render json: {}, status: :unauthorized
+    end
   end
 end
