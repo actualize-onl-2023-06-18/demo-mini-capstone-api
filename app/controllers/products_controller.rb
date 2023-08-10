@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+  # before_action :authenticate_admin, except: [:index, :show]
+  before_action :authenticate_admin, only: [:create, :update, :destroy]
+  
   def index
     p current_user
     @products = Product.all

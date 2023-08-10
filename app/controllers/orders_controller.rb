@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user
+  
   def index
     # orders = Order.where(user_id: current_user.id)
     @orders = current_user.orders
@@ -6,6 +8,7 @@ class OrdersController < ApplicationController
   end
   
   def create
+
     # subtotal == price * quantity
     product = Product.find_by(id: params[:product_id])
     # the polarized sunglasses
@@ -24,7 +27,7 @@ class OrdersController < ApplicationController
       total: calculated_total,
     )
     @order.save
-    render :show
+    render :show    
   end
   
   def show
