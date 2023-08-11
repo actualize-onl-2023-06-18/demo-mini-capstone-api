@@ -3,9 +3,15 @@ class ProductsController < ApplicationController
   before_action :authenticate_admin, only: [:create, :update, :destroy]
   
   def index
-    p current_user
-    @products = Product.all
-    render :index
+    # find the category, then find all the products for that category
+    if params[:category]
+      category = Category.find_by(name: params[:category])
+      @products = category.products
+    else
+      @products = Product.all
+      render :index
+    end
+      
   end
 
   def create
