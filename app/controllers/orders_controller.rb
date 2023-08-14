@@ -22,10 +22,6 @@ class OrdersController < ApplicationController
  
     # add all that up
     # tax + total
-
-    # ....
-    # backfill those items and change status to 'purchased'
-    # change order_id to the order id
     
     @order = Order.new(
       user_id: current_user.id, 
@@ -34,6 +30,17 @@ class OrdersController < ApplicationController
       total: calculated_total
     )
     @order.save
+    # ....
+    # backfill those items and change status to 'purchased'
+    # change order_id to the order id
+    @carted_products.each do |cp|
+      cp.update(
+        status: 'purchased',
+        order_id: @order.id
+      )
+    end
+      
+
     render :show
   end
   
