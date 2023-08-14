@@ -8,26 +8,14 @@ class OrdersController < ApplicationController
   end
   
   def create
-
-    # subtotal == price * quantity
-    product = Product.find_by(id: params[:product_id])
-    # the polarized sunglasses
-    calculated_subtotal = params[:quantity].to_i * product.price
-    # 5000
-    calculated_tax = calculated_subtotal * 0.09
-    calculated_total = calculated_subtotal + calculated_tax
-    
-    
     @order = Order.new(
-      user_id: current_user.id,
-      product_id: params[:product_id],
-      quantity: params[:quantity],
-      subtotal: calculated_subtotal,
-      tax: calculated_tax,
-      total: calculated_total,
+      user_id: 2, 
+      subtotal: 590, 
+      tax: 590 * 0.09, 
+      total: (590 * 0.09) + 590
     )
     @order.save
-    render :show    
+    render :show
   end
   
   def show
