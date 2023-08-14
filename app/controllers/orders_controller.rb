@@ -8,11 +8,30 @@ class OrdersController < ApplicationController
   end
   
   def create
+    # figure out what items are in this person's shopping cart
+    # @carted_products =  current_user.carted_products.where(status: 'carted')
+    @carted_products =  CartedProduct.where(status: 'carted', user_id: current_user.id)      
+    # figure out how much they all cost
+    calculated_subtotal = 0
+    @carted_products.each do |cp|
+      calculated_subtotal += cp.product.price * cp.quantity      
+    end    
+    tax_rate = 0.09
+    calculated_tax = calculated_subtotal * tax_rate
+    calculated_total = calculated_subtotal + calculated_tax
+ 
+    # add all that up
+    # tax + total
+
+    # ....
+    # backfill those items and change status to 'purchased'
+    # change order_id to the order id
+    
     @order = Order.new(
-      user_id: 2, 
-      subtotal: 590, 
-      tax: 590 * 0.09, 
-      total: (590 * 0.09) + 590
+      user_id: current_user.id, 
+      subtotal: calculated_subtotal, 
+      tax: calculated_tax, 
+      total: calculated_total
     )
     @order.save
     render :show
