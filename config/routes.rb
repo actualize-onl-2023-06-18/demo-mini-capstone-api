@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   get "/products" => "products#index"
+  # get "/categories/:category_id/products" => "products#index"
   post "/products" => "products#create"
   get "/products/:id" => "products#show"
   patch "/products/:id" => "products#update"
@@ -19,5 +20,5 @@ Rails.application.routes.draw do
   
   get "/carted_products" => "carted_products#index"
   post "/carted_products" => "carted_products#create"  
-  delete "/carted_products/:id" => "carted_products#destroy"  
+  delete "/carted_products/:id" => "carted_products#destroy"
 end

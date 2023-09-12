@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+
   # before_action :authenticate_admin, except: [:index, :show]
   before_action :authenticate_admin, only: [:create, :update, :destroy]
   
@@ -14,6 +15,13 @@ class ProductsController < ApplicationController
       
   end
 
+  # def index
+  #   # find the category, then find all the products for that category
+  #   category = Category.find_by(id: params[:category_id])
+  #   @products = category.products
+  #   render :index
+  # end
+  
   def create
     @product = Product.new(      
       name: params[:name], 
