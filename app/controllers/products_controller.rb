@@ -30,6 +30,10 @@ class ProductsController < ApplicationController
       supplier_id: params[:supplier_id]
     )
     if @product.save
+      params[:images].each do |image|
+        image = Image.new(url: image, product_id: @product.id)
+        image.save
+      end
       render :show
     else
       render json: {errors: @product.errors.full_messages}, status: 422
