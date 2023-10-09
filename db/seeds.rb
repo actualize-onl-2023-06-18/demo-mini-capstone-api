@@ -7,5 +7,5 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-product = Product.new(name: "comb", price: 5, image_url: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Plastic_comb%2C_2015-06-07.jpg", description: "fixes your hair")
+product = Product.new(name: "comb", price: 5, description: "fixes your hair")
 product.save
