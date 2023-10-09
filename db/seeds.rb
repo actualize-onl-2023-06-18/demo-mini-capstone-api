@@ -7,5 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-product = Product.new(name: "comb", price: 5, description: "fixes your hair")
-product.save
+supplier = Supplier.create!(name: "target")
+
+product = Product.new(name: "comb", price: 5, description: "fixes your hair", supplier_id: supplier.id)
+product.save!
